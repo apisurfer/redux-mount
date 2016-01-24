@@ -19,6 +19,10 @@
     "fast",
     "prototype"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/popc0rn/redux-mount.git"
+  },
   "author": "popc0rn popc0rn.me",
   "license": "MIT",
   "devDependencies": {
