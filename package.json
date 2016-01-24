@@ -1,0 +1,40 @@
+{
+  "name": "redux-mount",
+  "version": "0.0.1",
+  "description": "Lib for faster prototyping with redux, handles storing and retreiving data for current route",
+  "main": "dist/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/karma start --single-run --log-level=DEBUG",
+    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8888 --inline --config webpack.config.js",
+    "prod": "./node_modules/.bin/webpack -p --progress --profile --colors --config webpack.prod.config.js"
+  },
+  "keywords": [
+    "redux",
+    "mount",
+    "route",
+    "data",
+    "fast",
+    "prototype"
+  ],
+  "author": "popc0rn popc0rn.me",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-2": "^6.3.13",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.19",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.3",
+    "karma-webpack": "^1.7.0",
+    "phantomjs": "^1.9.19",
+    "phantomjs-polyfill": "0.0.1",
+    "webpack": "^1.12.12",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
