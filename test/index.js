@@ -85,6 +85,15 @@ describe('selectors', function() {
     it('should return true for route objects that are set', function () {
       expect(selectors.currentIsSet('_mountKey')(state)).toBe(true)
     })
+
+    it('should return false for route objects that are not set', function () {
+      expect(selectors.currentIsSet('_mountKey')({
+        _mountKey: {
+          mountedOn: 'test123',
+          routes: {}
+        }
+      })).toBe(false)
+    })
   })
 })
 
