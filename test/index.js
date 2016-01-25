@@ -80,6 +80,12 @@ describe('selectors', function() {
       expect(selectors.currentKey('_mountKey')('prop2')(state)).toBe('foobar')
     })
   })
+
+  describe('currentIsSet', function() {
+    it('should return true for route objects that are set', function () {
+      expect(selectors.currentIsSet('_mountKey')(state)).toBe(true)
+    })
+  })
 })
 
 /**

@@ -91,7 +91,7 @@ export function reducer(state = initialState, action) {
 }
 
 /**
- * Helper functions for creating key and route state selectors
+ * Helper functions for selectors for route states
  */
 function current(stateKey) {
   return state => {
@@ -112,6 +112,10 @@ function currentKey(stateKey) {
   }
 }
 
+function currentIsSet(stateKey) {
+  return state => !!current(stateKey)(state)
+}
+
 
 export const actions = {
   mount,
@@ -122,6 +126,7 @@ export const actions = {
 export const selectors = {
   current,
   currentKey,
+  currentIsSet,
 }
 
 export default {
