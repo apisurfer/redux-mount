@@ -76,8 +76,8 @@ describe('selectors', function() {
 
   describe('currentKey', function() {
     it('should return correct property from route object', function() {
-      expect(selectors.currentKey('_mountKey')('prop1')(state)).toBe(123)
-      expect(selectors.currentKey('_mountKey')('prop2')(state)).toBe('foobar')
+      expect(selectors.currentKey('_mountKey')(state)('prop1')).toBe(123)
+      expect(selectors.currentKey('_mountKey')(state)('prop2')).toBe('foobar')
     })
   })
 

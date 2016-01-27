@@ -101,7 +101,7 @@ function current(stateKey) {
 }
 
 function currentKey(stateKey) {
-  return key => state => {
+  return state => key => {
     const mountedOn = state[stateKey].mountedOn
 
     if (!state[stateKey].routes[mountedOn]) {
