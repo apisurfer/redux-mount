@@ -1,6 +1,6 @@
 {
   "name": "redux-mount",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Lib for faster prototyping with redux, handles storing and retreiving data for current route",
   "main": "dist/index.js",
   "directories": {
