@@ -1,7 +1,8 @@
 export const actionsTypes = {
-  set: '@@redux-mount/SET',
-  mount: '@@redux-mount/MOUNT',
-  unmount: '@@redux-mount/UNMOUNT',
+  set: 'redux-mount/SET',
+  mount: 'redux-mount/MOUNT',
+  unmount: 'redux-mount/UNMOUNT',
+  clear: 'redux-mount/CLEAR',
 }
 
 const initialState = {
@@ -22,10 +23,15 @@ function mount(mountOn, initData = {}) {
   }
 }
 
-function unmount(cleanupRouteData = false) {
+function unmount() {
   return {
     type: actionsTypes.unmount,
-    payload: cleanupRouteData,
+  }
+}
+
+function clear() {
+  return {
+    type: actionsTypes.clear,
   }
 }
 
@@ -54,9 +60,10 @@ export function reducer(state = initialState, action) {
         [mountOn]: initData,
       }
     }
+
   } else if (action.type === actionsTypes.unmount) {
     const wasMountedOn = state.mountedOn
-    const newState = {
+    return {
       ...state,
       mountedOn: '',
       routes: {
@@ -64,11 +71,20 @@ export function reducer(state = initialState, action) {
       }
     }
 
-    if (action.payload) {
-      newState.routes[state.mountedOn] = {}
-    }
+  } else if (action.type === actionsTypes.clear) {
+    if (state.mountedOn) {
+      return {
+        ...state,
+        routes: {
+          ...state.routes,
+          [state.mountedOn]: {},
+        }
+      }
 
-    return newState
+      return test
+    } else {
+      return state
+    }
 
   } else if (action.type === actionsTypes.set) {
     const mountedOn = state.mountedOn

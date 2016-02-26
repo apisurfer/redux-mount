@@ -26,7 +26,7 @@ describe('actions', function() {
   describe('mount', function() {
     it('should create action with appropriate type', function() {
       const action = actions.mount('view/path')
-      expect(action.type).toBe('@@redux-mount/MOUNT')
+      expect(action.type).toBe('redux-mount/MOUNT')
     })
 
     it('should set correct mountedOn key', function() {
@@ -49,17 +49,7 @@ describe('actions', function() {
   describe('unmount', function() {
     it('should create action with appropriate type', function() {
       const action = actions.unmount()
-      expect(action.type).toBe('@@redux-mount/UNMOUNT')
-    })
-
-    it('should set payload to false by default', function() {
-      const action = actions.unmount()
-      expect(action.payload).toBe(false)
-    })
-
-    it('should correctly set the payload', function() {
-      const action = actions.unmount(true)
-      expect(action.payload).toBe(true)
+      expect(action.type).toBe('redux-mount/UNMOUNT')
     })
   })
 })
@@ -109,7 +99,7 @@ describe('selectors', function() {
 
    describe('mount action', function() {
      const testAction = {
-        type: '@@redux-mount/MOUNT',
+        type: 'redux-mount/MOUNT',
         payload: {
           mountOn: 'user/create',
           initData: {
@@ -135,28 +125,11 @@ describe('selectors', function() {
 
    describe('unmount action', function() {
      const defaultTestAction = {
-        type: '@@redux-mount/UNMOUNT',
-        payload: undefined
+        type: 'redux-mount/UNMOUNT',
      }
 
      it('should set up mountedOn key to empty string', function() {
        expect(reducer(state, defaultTestAction).mountedOn).toBe('')
-     })
-
-     it('should leave old data if false provided', function() {
-       const testAction = {
-          type: '@@redux-mount/UNMOUNT',
-          payload: false
-       }
-       expect(reducer(state._mountKey, testAction).routes['test/route']).toEqual(state._mountKey.routes['test/route'])
-     })
-
-     it('should remove old data if true provided', function() {
-       const testAction = {
-          type: '@@redux-mount/UNMOUNT',
-          payload: true
-       }
-       expect(reducer(state._mountKey, testAction).routes['test/route']).toEqual({})
      })
 
      it('should not mutate state objects; should return newly created object', function() {
@@ -166,9 +139,25 @@ describe('selectors', function() {
      })
    })
 
+   describe('clear action', function() {
+     it('should return previous state if module is not mounted', function() {
+       const testAction = { type: 'redux-mount/CLEAR' }
+       const testState = { mountedOn: '', routes: { foo: 'bar'} }
+
+       expect(reducer(testState, testAction)).toBe(testState)
+     })
+
+    it('should clear value on mounted path', function() {
+      const testAction = {
+         type: 'redux-mount/CLEAR',
+      }
+      expect(reducer(state._mountKey, testAction).routes['test/route']).toEqual({})
+    })
+   })
+
    describe('set action', function() {
      const testAction = {
-        type: '@@redux-mount/SET',
+        type: 'redux-mount/SET',
         payload: {
           key: 'newProp',
           data: 'value to set',
