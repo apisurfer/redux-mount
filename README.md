@@ -1,6 +1,6 @@
 # redux-mount
 
-![build status](https://api.travis-ci.org/popc0rn/redux-mount.svg)
+![current version](https://badge.fury.io/js/redux-mount.svg) ![dependencies status](https://david-dm.org/popc0rn/redux-mount.svg) ![build status](https://api.travis-ci.org/popc0rn/redux-mount.svg)
 
 Allows setting per-route data that fastens up development. It's best to use it only with volatile data that is set and changed by individual views and not reused on other parts of application.
 
