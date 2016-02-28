@@ -58,31 +58,16 @@ describe('actions', function() {
  * Selector creators
  */
 describe('selectors', function() {
-  describe('current', function() {
+  describe('mountedState', function() {
     it('should return correct route object', function() {
-      expect(selectors.current('_mountKey')(state)).toBe(state._mountKey.routes['test/route'])
+      expect(selectors.mountedState('_mountKey')(state)).toBe(state._mountKey.routes['test/route'])
     })
   })
 
-  describe('currentKey', function() {
+  describe('mountedStateProp', function() {
     it('should return correct property from route object', function() {
-      expect(selectors.currentKey('_mountKey')(state)('prop1')).toBe(123)
-      expect(selectors.currentKey('_mountKey')(state)('prop2')).toBe('foobar')
-    })
-  })
-
-  describe('currentIsSet', function() {
-    it('should return true for route objects that are set', function () {
-      expect(selectors.currentIsSet('_mountKey')(state)).toBe(true)
-    })
-
-    it('should return false for route objects that are not set', function () {
-      expect(selectors.currentIsSet('_mountKey')({
-        _mountKey: {
-          mountedOn: 'test123',
-          routes: {}
-        }
-      })).toBe(false)
+      expect(selectors.mountedStateProp('_mountKey')(state)('prop1')).toBe(123)
+      expect(selectors.mountedStateProp('_mountKey')(state)('prop2')).toBe('foobar')
     })
   })
 })

@@ -81,7 +81,6 @@ export function reducer(state = initialState, action) {
         }
       }
 
-      return test
     } else {
       return state
     }
@@ -107,16 +106,16 @@ export function reducer(state = initialState, action) {
 }
 
 /**
- * Helper functions for selectors for route states
+ * Helper functions that create selectors for route state and props
  */
-function current(stateKey) {
+function mountedState(stateKey) {
   return state => {
     const mountedOn = state[stateKey].mountedOn
     return state[stateKey].routes[mountedOn]
   }
 }
 
-function currentKey(stateKey) {
+function mountedStateProp(stateKey) {
   return state => key => {
     const mountedOn = state[stateKey].mountedOn
 
@@ -128,11 +127,6 @@ function currentKey(stateKey) {
   }
 }
 
-function currentIsSet(stateKey) {
-  return state => !!current(stateKey)(state)
-}
-
-
 export const actions = {
   mount,
   unmount,
@@ -140,9 +134,8 @@ export const actions = {
 }
 
 export const selectors = {
-  current,
-  currentKey,
-  currentIsSet,
+  mountedState,
+  mountedStateProp,
 }
 
 export default {
