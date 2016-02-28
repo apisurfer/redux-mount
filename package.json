@@ -1,7 +1,7 @@
 {
   "name": "redux-mount",
   "version": "0.0.6",
-  "description": "Lib for faster prototyping with redux, handles storing and retreiving data for current route",
+  "description": "Lib for faster development using redux, handles storing and retreiving data for current route.",
   "main": "dist/index.js",
   "directories": {
     "test": "tests"
@@ -16,8 +16,7 @@
     "mount",
     "route",
     "data",
-    "fast",
-    "prototype"
+    "fast"
   ],
   "repository": {
     "type": "git",
