@@ -42,10 +42,10 @@ state === {
 */
 
 // unmount and clear all data on mounted path
-dispatch(actions.unmout(true))
+dispatch(actions.clear())
 /*
 state === {
-  mountedOn: '',
+  mountedOn: 'user/new',
   routes: {
     'user/new': {}
   }
