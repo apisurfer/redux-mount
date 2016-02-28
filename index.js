@@ -109,14 +109,14 @@ export function reducer(state = initialState, action) {
 /**
  * Helper functions that create selectors for route state and props
  */
-function mountedState(stateKey) {
+function mountState(stateKey) {
   return state => {
     const mountedOn = state[stateKey].mountedOn
     return state[stateKey].routes[mountedOn]
   }
 }
 
-function mountedStateProp(stateKey) {
+function mountStateProp(stateKey) {
   return state => key => {
     const mountedOn = state[stateKey].mountedOn
 
@@ -135,8 +135,8 @@ export const actions = {
 }
 
 export const selectors = {
-  mountedState,
-  mountedStateProp,
+  mountState,
+  mountStateProp,
 }
 
 export default {

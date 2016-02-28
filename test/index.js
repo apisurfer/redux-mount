@@ -58,16 +58,16 @@ describe('actions', function() {
  * Selector creators
  */
 describe('selectors', function() {
-  describe('mountedState', function() {
+  describe('mountState', function() {
     it('should return correct route object', function() {
-      expect(selectors.mountedState('_mountKey')(state)).toBe(state._mountKey.routes['test/route'])
+      expect(selectors.mountState('_mountKey')(state)).toBe(state._mountKey.routes['test/route'])
     })
   })
 
-  describe('mountedStateProp', function() {
+  describe('mountStateProp', function() {
     it('should return correct property from route object', function() {
-      expect(selectors.mountedStateProp('_mountKey')(state)('prop1')).toBe(123)
-      expect(selectors.mountedStateProp('_mountKey')(state)('prop2')).toBe('foobar')
+      expect(selectors.mountStateProp('_mountKey')(state)('prop1')).toBe(123)
+      expect(selectors.mountStateProp('_mountKey')(state)('prop2')).toBe('foobar')
     })
   })
 })
