@@ -13,7 +13,7 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-function mount(mountOn, initData = {}) {
+function mount(mountOn, initData) {
   return {
     type: actionsTypes.mount,
     payload: {
@@ -51,13 +51,14 @@ function set(key, data) {
 export function reducer(state = initialState, action) {
   if (action.type === actionsTypes.mount) {
     const { mountOn, initData } = action.payload
+    const previousData = state.routes[mountOn]
 
     return {
       ...state,
       mountedOn: mountOn,
       routes: {
         ...state.routes,
-        [mountOn]: initData,
+        [mountOn]: initData ? initData : previousData || {},
       }
     }
 

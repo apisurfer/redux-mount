@@ -34,9 +34,9 @@ describe('actions', function() {
       expect(action.payload.mountOn).toBe('users/test/new')
     })
 
-    it('should assign default initial value if it\'s not specified in argument', function() {
+    it('should make the initData parameter undefined if not passed as paramter of function call', function() {
       const action = actions.mount('view/path')
-      expect(action.payload.initData).toEqual({})
+      expect(action.payload.initData).toEqual(undefined)
     })
 
     it('should assign initial value if it\'s passed as argument', function() {
@@ -97,14 +97,49 @@ describe('selectors', function() {
        expect(reducer(state._mountKey, testAction).mountedOn).toBe(testAction.payload.mountOn)
      })
 
-     it('should set initial data', function() {
+     it('should set specified initial data', function() {
        expect(reducer(state._mountKey, testAction).routes[testAction.payload.mountOn]).toBe(testAction.payload.initData)
+     })
+
+     it('should set the intial data to empty obj if no data is provided and none exists from before', function() {
+       const emptyDataAction = {
+          type: 'redux-mount/MOUNT',
+          payload: {
+            mountOn: 'test/new',
+            initData: undefined,
+          }
+       }
+
+       const newState = reducer(reducerInitialState, emptyDataAction)
+
+       expect(newState.routes[emptyDataAction.payload.mountOn]).toEqual({})
+     })
+
+     it('should respect and leave the previous data if mounted with empty data parameter', function() {
+       const action = actions.mount('test/foobar')
+       const prevState = {
+         _mountKey: {
+           mountedOn: '',
+           routes: {
+             'test/foobar': {
+               prop1: 123,
+               prop2: 'foobar',
+             }
+           }
+         }
+       }
+       const newState = reducer(prevState._mountKey, action)
+
+       expect(newState.routes['test/foobar']).toBe(prevState._mountKey.routes['test/foobar'])
      })
 
      it('should not mutate state objects; should return newly created objects', function() {
        const newState = reducer(state._mountKey, testAction)
+       const mountOn = testAction.payload.mountOn
+
        expect(state._mountKey).not.toBe(newState)
        expect(state._mountKey.routes).not.toBe(newState.routes)
+       expect(state._mountKey.routes[mountOn]).not.toBe(newState.routes[mountOn])
      })
    })
 
@@ -132,7 +167,7 @@ describe('selectors', function() {
        expect(reducer(testState, testAction)).toBe(testState)
      })
 
-    it('should clear value on mounted path', function() {
+    it('should clear value to empty obj on mounted path', function() {
       const testAction = {
          type: 'redux-mount/CLEAR',
       }
