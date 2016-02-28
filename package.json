@@ -1,6 +1,6 @@
 {
   "name": "redux-mount",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "Lib for faster development using redux, handles storing and retreiving data for current route.",
   "main": "dist/index.js",
   "directories": {
