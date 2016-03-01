@@ -2,69 +2,38 @@
 
 ![current version](https://badge.fury.io/js/redux-mount.svg) ![dependencies status](https://david-dm.org/popc0rn/redux-mount.svg) ![build status](https://api.travis-ci.org/popc0rn/redux-mount.svg)
 
-Allows setting per-route data that fastens up development. It's best to use it only with volatile data that is set and changed by individual views and not reused on other parts of application.
+Set per-route data on-the-fly when component mounts. Set properties to update UI and optionally clear everything on component unmount.
 
 Actions:
 ```javascript
-import { actions } from 'redux-mount'
+import { combineReducers } from 'redux'
+import { actions, reducer, selectors } from 'redux-mount'
+
+const MOUNT_STATE_KEY = '_mount'
+
+const appReducer = combineReducers({
+  [MOUNT_STATE_KEY]: reducer,
+  // your other reducers...
+})
+
+// create store with appReducer etc...
 
 // mount on path
 dispatch(actions.mount('user/new'))
-/*
-state === {
-  mountedOn: 'user/new',
-  routes: {
-    'user/new': {}
-  }
-}
-*/
+// OR with initial data
+dispatch(actions.mount('user/new'), { type: 'admin' })
 
-// unmount but leave mounted path values untouched
-dispatch(actions.unmount())
-/*
-state === {
-  mountedOn: '',
-  routes: {
-    'user/new': {}
-  }
-}
-*/
+// after mount, set/change properties with "set" action
+dispatch(actions.set('foo', 'bar')
 
-// mount with default values
-dispatch(actions.mount('user/new'), {foo: 'bar'})
-/*
-state === {
-  mountedOn: 'user/new',
-  routes: {
-    'user/new': {foo: 'bar'}
-  }
-}
-*/
-
-// unmount and clear all data on mounted path
+// clear currently mounted state to empty object
 dispatch(actions.clear())
-/*
-state === {
-  mountedOn: 'user/new',
-  routes: {
-    'user/new': {}
-  }
-}
-*/
 
-// Setting properties on mounted path
-dispatch(actions.mount('user/new'), {foo: 'bar'})
-dispatch(actions.set('newProp', 'test'))
-/*
-state === {
-  mountedOn: 'user/new',
-  routes: {
-    'user/new': {
-      foo: 'bar',
-      newProp: 'test'
-    }
-  }
-}
-*/
+// unmount from the route; leave data as is
+dispatch(actions.unmount())
 
+// fetch currently mounted data
+selectors.mountState(MOUNT_STATE_KEY)(appState)
+// fetch currently selected data property
+selectors.mountStateProp(MOUNT_STATE_KEY)(appState)('foo')
 ```
