@@ -131,6 +131,7 @@ function mountStateProp(stateKey) {
 export const actions = {
   mount,
   unmount,
+  clear,
   set,
 }
 
