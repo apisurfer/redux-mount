@@ -7,7 +7,7 @@ reducers, actions, or selectors to handle view-specific state yourself.
 
 Single page apps often have views that depend on some kind of state to represent
 their variations. Rest of the app might not care about that state.
-Also, there might be a need to persist view states while navigating through
+Also, there might be a need to persist view state while navigating through
 the app. Handling this state results in a lot of boilerplate.
 
 redux-mount solves this by opinionated reducer, actions and selectors.
