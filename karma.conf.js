@@ -11,7 +11,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      './test/index.js': ['webpack'],
+      './test/**/*.js': ['webpack'],
     },
 
     webpack: require('./webpack.config'),
