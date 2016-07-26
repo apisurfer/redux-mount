@@ -1,6 +1,6 @@
 import 'phantomjs-polyfill'
 import { createStore, combineReducers } from 'redux'
-import { reducer, actions, selectors } from '../index'
+import { reducer, actions, createSelector } from '../index'
 
 const store = createStore(
   combineReducers({
@@ -8,8 +8,7 @@ const store = createStore(
   })
 )
 
-const mounted = selectors.mountState('_mount')
-const mountedProp = selectors.mountStateProp('_mount')
+const mountedState = createSelector('_mount')
 
 describe('redux integration', () => {
   it('should initialize with proper init values', () => {
@@ -24,14 +23,14 @@ describe('redux integration', () => {
     // mount
     store.dispatch(actions.mount('/first-mount'))
     // read mounted values
-    expect(mounted(store.getState())).toEqual({})
+    expect(mountedState(store.getState())).toEqual({})
     expect(store.getState()._mount.mountedOn).toBe('/first-mount')
   })
 
   it('should set value to currently mounted obj', () => {
     // set value
     store.dispatch(actions.set('foo', 'bar'))
-    expect(mountedProp(store.getState())('foo')).toBe('bar')
+    expect(mountedState(store.getState()).foo).toBe('bar')
   })
 
   it('should unmount and leave route values untouched', () => {
@@ -45,12 +44,12 @@ describe('redux integration', () => {
   it('should mount with initial data if passed', () => {
     // mount with initial data
     store.dispatch(actions.mount('another/route', {test: 1, test2: 2}))
-    expect(mounted(store.getState())).toEqual({test: 1, test2: 2})
+    expect(mountedState(store.getState())).toEqual({test: 1, test2: 2})
   })
 
   it('should clear mounted values correctly', () => {
     // clear mounted values
     store.dispatch(actions.clear())
-    expect(mounted(store.getState())).toEqual({})
+    expect(mountedState(store.getState())).toEqual({})
   })
 })

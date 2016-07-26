@@ -1,7 +1,7 @@
 import 'phantomjs-polyfill'
 import reduxMount from '../index'
 
-const { actions, reducer, selectors } = reduxMount
+const { actions, reducer, createSelector } = reduxMount
 const state = {
   _mountKey: {
     mountedOn: 'test/route',
@@ -55,20 +55,11 @@ describe('actions', function() {
 })
 
 /**
- * Selector creators
+ * Selector creator
  */
-describe('selectors', function() {
-  describe('mountState', function() {
-    it('should return correct route object', function() {
-      expect(selectors.mountState('_mountKey')(state)).toBe(state._mountKey.routes['test/route'])
-    })
-  })
-
-  describe('mountStateProp', function() {
-    it('should return correct property from route object', function() {
-      expect(selectors.mountStateProp('_mountKey')(state)('prop1')).toBe(123)
-      expect(selectors.mountStateProp('_mountKey')(state)('prop2')).toBe('foobar')
-    })
+describe('createSelector', function() {
+  it('should return correct route object', function() {
+    expect(createSelector('_mountKey')(state)).toBe(state._mountKey.routes['test/route'])
   })
 })
 

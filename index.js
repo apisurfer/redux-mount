@@ -107,25 +107,10 @@ export function reducer(state = initialState, action) {
 }
 
 /**
- * Helper functions that create selectors for route state and props
+ * Helper function that creates mount state selector
  */
-function mountState(stateKey) {
-  return state => {
-    const mountedOn = state[stateKey].mountedOn
-    return state[stateKey].routes[mountedOn]
-  }
-}
-
-function mountStateProp(stateKey) {
-  return state => key => {
-    const mountedOn = state[stateKey].mountedOn
-
-    if (!state[stateKey].routes[mountedOn]) {
-      return undefined
-    }
-
-    return state[stateKey].routes[mountedOn][key]
-  }
+export function createSelector(stateKey) {
+  return state => state[stateKey].routes[state[stateKey].mountedOn]
 }
 
 export const actions = {
@@ -135,13 +120,8 @@ export const actions = {
   set,
 }
 
-export const selectors = {
-  mountState,
-  mountStateProp,
-}
-
 export default {
   reducer,
   actions,
-  selectors,
+  createSelector,
 }
